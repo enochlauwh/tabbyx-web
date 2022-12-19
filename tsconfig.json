@@ -19,8 +19,10 @@
     "paths": {
       "@components": ["./components/index"],
       "@components/*": ["./components/*"],
-      "@pages/*": ["./pages/*"]
-    }
+      "@pages/*": ["./pages/*"],
+      "@utils/*": ["./utils/*"]
+    },
+    "types": ["vitest/globals"]
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

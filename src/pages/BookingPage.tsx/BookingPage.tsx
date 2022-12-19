@@ -11,12 +11,27 @@ import {
   SimpleGrid,
   Select,
 } from '@chakra-ui/react';
-import { useState } from 'react';
-import 'react-modern-calendar-datepicker/lib/DatePicker.css';
+import { useEffect, useState } from 'react';
 import { Calendar } from 'react-modern-calendar-datepicker';
+
+import 'react-modern-calendar-datepicker/lib/DatePicker.css';
+import {
+  getCalendarAvailableRange,
+  getCalendarDisabledDays,
+} from '@utils/date';
 
 const BookingPage = () => {
   const [selectedDay, setSelectedDay] = useState(null);
+  const availableDateRange = getCalendarAvailableRange();
+  const disabledDays = getCalendarDisabledDays();
+
+  useEffect(() => {
+    handleDaySelected();
+  }, [selectedDay]);
+
+  const handleDaySelected = () => {
+    console.log('selected', selectedDay);
+  };
 
   return (
     <Box position={'relative'}>
@@ -33,6 +48,9 @@ const BookingPage = () => {
             value={selectedDay}
             // @ts-ignore
             onChange={setSelectedDay}
+            minimumDate={availableDateRange.minimumDate}
+            maximumDate={availableDateRange.maximumDate}
+            disabledDays={disabledDays}
             shouldHighlightWeekends
           />
         </Stack>

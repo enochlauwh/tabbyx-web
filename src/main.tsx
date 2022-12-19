@@ -5,6 +5,8 @@ import { ChakraProvider } from '@chakra-ui/react';
 
 import Router from './navigation/Router';
 
+import './setupApp';
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <BrowserRouter>
     <ChakraProvider>
