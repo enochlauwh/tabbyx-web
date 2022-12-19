@@ -30,7 +30,11 @@ const BookingPage = () => {
   }, [selectedDay]);
 
   const handleDaySelected = () => {
-    console.log('selected', selectedDay);
+    // console.log('selected', selectedDay);
+  };
+
+  const handleSubmit = () => {
+    //
   };
 
   return (
@@ -143,6 +147,7 @@ const BookingPage = () => {
                 bgGradient: 'linear(to-r, red.400,pink.400)',
                 boxShadow: 'xl',
               }}
+              onClick={handleSubmit}
             >
               Book Now
             </Button>
