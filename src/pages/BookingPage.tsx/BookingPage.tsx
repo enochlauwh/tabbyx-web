@@ -11,12 +11,13 @@ import {
   SimpleGrid,
   Select,
 } from '@chakra-ui/react';
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery, useMutation } from '@apollo/client';
 import { useEffect, useState } from 'react';
-import { Calendar, Day } from 'react-modern-calendar-datepicker';
+import { Calendar, Day } from '@hassanmojab/react-modern-calendar-datepicker';
 import Joi from 'joi';
 
-import 'react-modern-calendar-datepicker/lib/DatePicker.css';
+import '@hassanmojab/react-modern-calendar-datepicker/lib/DatePicker.css';
+
 import {
   getCalendarAvailableRange,
   getCalendarDisabledDays,
@@ -24,9 +25,12 @@ import {
 import {
   AvailableHoursQuery,
   AvailableHoursQueryVariables,
+  MakeBookingMutation,
+  MakeBookingMutationVariables,
 } from 'generated/graphql-types';
 import dayjs from 'dayjs';
 import { showError } from '@components/Toast';
+import { useNavigate } from 'react-router-dom';
 
 type FormData = {
   name: string;
@@ -35,6 +39,7 @@ type FormData = {
 };
 
 const BookingPage = () => {
+  const navigate = useNavigate();
   const [selectedDay, setSelectedDay] = useState<Day | null>(null);
   const [availableHours, setAvailableHours] = useState<number[]>([]);
   const [formData, setFormData] = useState<FormData>({
@@ -48,7 +53,7 @@ const BookingPage = () => {
   const availableDateRange = getCalendarAvailableRange();
   const disabledDays = getCalendarDisabledDays();
 
-  const { data: hoursQueryData } = useQuery<
+  const { data: hoursQueryData, refetch: refetchQuery } = useQuery<
     AvailableHoursQuery,
     AvailableHoursQueryVariables
   >(hoursQuery, {
@@ -62,6 +67,11 @@ const BookingPage = () => {
     },
   });
 
+  const [mutateMakeBooking, { loading: makeBookingLoading }] = useMutation<
+    MakeBookingMutation,
+    MakeBookingMutationVariables
+  >(bookingMutation);
+
   useEffect(() => {
     setFormData({
       ...formData,
@@ -74,11 +84,6 @@ const BookingPage = () => {
       setAvailableHours(hoursQueryData.availableHours);
     }
   }, [hoursQueryData]);
-
-  const handleSubmit = () => {
-    setFormErrors([]);
-    isFormValid();
-  };
 
   const getAvailableHoursOptions = () => {
     return availableHours.map((hour) => {
@@ -125,6 +130,36 @@ const BookingPage = () => {
     }
 
     return true;
+  };
+
+  const handleSubmit = async () => {
+    setFormErrors([]);
+    if (!isFormValid()) {
+      return;
+    }
+
+    const { name, email, hour } = formData;
+    const { year, month, day } = selectedDay || {};
+
+    const bookingResult = await mutateMakeBooking({
+      variables: {
+        input: {
+          name,
+          email,
+          hour: parseInt(hour),
+          year: year || 0,
+          month: month || 0,
+          day: day || 0,
+        },
+      },
+    });
+
+    if (bookingResult.data?.makeBooking) {
+      await refetchQuery();
+
+      const { id, startDate } = bookingResult.data.makeBooking;
+      navigate(`/complete?id=${id}&date=${startDate}`);
+    }
   };
 
   return (
@@ -254,7 +289,7 @@ const BookingPage = () => {
                 boxShadow: 'xl',
               }}
               onClick={handleSubmit}
-              disabled={!isFormComplete()}
+              disabled={!isFormComplete() || makeBookingLoading}
             >
               Book Now
             </Button>
@@ -265,10 +300,24 @@ const BookingPage = () => {
     </Box>
   );
 };
-
 const hoursQuery = gql`
   query AvailableHours($input: AvailableHoursInput!) {
     availableHours(input: $input)
+  }
+`;
+
+const bookingMutation = gql`
+  mutation MakeBooking($input: MakeBookingInput!) {
+    makeBooking(input: $input) {
+      id
+      startDate
+      endDate
+      createdBy {
+        name
+        email
+      }
+      createdAt
+    }
   }
 `;
 

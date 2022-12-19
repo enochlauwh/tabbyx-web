@@ -89,9 +89,24 @@ export type Booking = {
   startDate?: Maybe<Scalars['DateTime']>;
 };
 
+export type MakeBookingInput = {
+  day: Scalars['Int'];
+  email: Scalars['String'];
+  hour: Scalars['Int'];
+  month: Scalars['Int'];
+  name: Scalars['String'];
+  year: Scalars['Int'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   _empty?: Maybe<Scalars['String']>;
+  makeBooking: Booking;
+};
+
+
+export type MutationMakeBookingArgs = {
+  input: MakeBookingInput;
 };
 
 export type Query = {
@@ -101,7 +116,6 @@ export type Query = {
   availableHours: Array<Scalars['Int']>;
   /** Returns the bookings for a given user by email */
   bookings: Array<Maybe<Booking>>;
-  hello?: Maybe<Scalars['String']>;
 };
 
 
@@ -127,3 +141,10 @@ export type AvailableHoursQueryVariables = Exact<{
 
 
 export type AvailableHoursQuery = { __typename?: 'Query', availableHours: Array<number> };
+
+export type MakeBookingMutationVariables = Exact<{
+  input: MakeBookingInput;
+}>;
+
+
+export type MakeBookingMutation = { __typename?: 'Mutation', makeBooking: { __typename?: 'Booking', id?: string | null, startDate?: any | null, endDate?: any | null, createdAt?: any | null, createdBy?: { __typename?: 'User', name?: string | null, email?: string | null } | null } };

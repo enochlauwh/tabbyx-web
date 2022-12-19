@@ -85,8 +85,18 @@ scalar Longitude
 
 scalar MAC
 
+input MakeBookingInput {
+  year: Int!
+  month: Int!
+  day: Int!
+  hour: Int!
+  name: String!
+  email: String!
+}
+
 type Mutation {
   _empty: String
+  makeBooking(input: MakeBookingInput!): Booking!
 }
 
 scalar NegativeFloat
@@ -117,7 +127,6 @@ scalar PostalCode
 
 type Query {
   _empty: String
-  hello: String
 
   """Returns the bookings for a given user by email"""
   bookings(email: String!): [Booking]!

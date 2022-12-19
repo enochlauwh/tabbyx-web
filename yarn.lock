@@ -1953,6 +1953,13 @@
   dependencies:
     "@hapi/hoek" "^9.0.0"
 
+"@hassanmojab/react-modern-calendar-datepicker@^3.1.7":
+  version "3.1.7"
+  resolved "https://registry.yarnpkg.com/@hassanmojab/react-modern-calendar-datepicker/-/react-modern-calendar-datepicker-3.1.7.tgz#e5b8a1a78e0bf9d8001cc46b5b722c47c68975b7"
+  integrity sha512-dX/FXGcvIW31dgA1fcFJkHmIx3k4AqX166SfCQ6weBb0ZLr6C/f5YzcXVop19ifX18ezEw11Xb+l02JGj4+R6g==
+  dependencies:
+    jalaali-js "^1.1.0"
+
 "@humanwhocodes/config-array@^0.11.8":
   version "0.11.8"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.11.8.tgz#03595ac2075a4dc0f191cc2131de14fbd7d410b9"
@@ -2827,6 +2834,14 @@ busboy@^1.6.0:
   dependencies:
     streamsearch "^1.1.0"
 
+calendar-link@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/calendar-link/-/calendar-link-2.4.0.tgz#727140bc47f65012edf5bf6ce7cf97247e52df05"
+  integrity sha512-PhsczzAsUQVdTaX8I0QzohK7dpyXpCK79QEsRaaadE63zwDSIZCFDLDykz75DpC4rBpI6d9EenMBRz0rTd4rPQ==
+  dependencies:
+    dayjs "^1.9.3"
+    query-string "^6.13.6"
+
 call-bind@^1.0.0, call-bind@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/call-bind/-/call-bind-1.0.2.tgz#b1d4e89e688119c3c9a903ad30abb2f6a919be3c"
@@ -3178,7 +3193,7 @@ dataloader@2.1.0:
   resolved "https://registry.yarnpkg.com/dataloader/-/dataloader-2.1.0.tgz#c69c538235e85e7ac6c6c444bae8ecabf5de9df7"
   integrity sha512-qTcEYLen3r7ojZNgVUaRggOI+KM7jrKxXeSHhogh/TWxYMeONEMqY+hmkobiYQozsGIyg9OYVzO4ZIfoB4I0pQ==
 
-dayjs@^1.11.7:
+dayjs@^1.11.7, dayjs@^1.9.3:
   version "1.11.7"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.7.tgz#4b296922642f70999544d1144a2c25730fce63e2"
   integrity sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ==
@@ -3213,6 +3228,11 @@ decamelize@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/decamelize/-/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
   integrity sha512-z2S+W9X73hAUUki+N+9Za2lBlun89zigOyGrsax+KUQ6wKW4ZoWpEYBkGhQjwAjjDCkWxhY0VKEhk8wzY7F5cA==
+
+decode-uri-component@^0.2.0:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.2.tgz#e69dbe25d37941171dd540e024c444cd5188e1e9"
+  integrity sha512-FqUYQ+8o158GyGTrMFJms9qh3CqTKvAqgqsTnkLI8sKu0028orqBhxNMFkFen0zGyg6epACD32pjVk58ngIErQ==
 
 deep-eql@^4.1.2:
   version "4.1.3"
@@ -3722,6 +3742,11 @@ fill-range@^7.0.1:
   integrity sha512-qOo9F+dMUmC2Lcb4BbVvnKJxTPjCm+RRpe4gDuGrzkL7mEVl/djYSu2OdQ2Pa302N4oqkSg9ir6jaLWJ2USVpQ==
   dependencies:
     to-regex-range "^5.0.1"
+
+filter-obj@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/filter-obj/-/filter-obj-1.1.0.tgz#9b311112bc6c6127a16e016c6c5d7f19e0805c5b"
+  integrity sha512-8rXg1ZnX7xzy2NGDVkBVaAy+lSlPNwad13BtgSlLuxfIslyt5Vg64U7tFcCt4WS1R0hvtnQybT/IyCkGZ3DpXQ==
 
 find-root@^1.1.0:
   version "1.1.0"
@@ -5113,6 +5138,16 @@ pvutils@^1.1.3:
   resolved "https://registry.yarnpkg.com/pvutils/-/pvutils-1.1.3.tgz#f35fc1d27e7cd3dfbd39c0826d173e806a03f5a3"
   integrity sha512-pMpnA0qRdFp32b1sJl1wOJNxZLQ2cbQx+k6tjNtZ8CpvVhNqEPRgivZ2WOUev2YMajecdH7ctUPDvEe87nariQ==
 
+query-string@^6.13.6:
+  version "6.14.1"
+  resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.14.1.tgz#7ac2dca46da7f309449ba0f86b1fd28255b0c86a"
+  integrity sha512-XDxAeVmpfu1/6IjyT/gXHOl+S0vQ9owggJ30hhWKdHAsNPOcasn5o9BW0eejZqL2e4vMjhAxoW3jVHcD6mbcYw==
+  dependencies:
+    decode-uri-component "^0.2.0"
+    filter-obj "^1.1.0"
+    split-on-first "^1.0.0"
+    strict-uri-encode "^2.0.0"
+
 queue-microtask@^1.2.2:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
@@ -5169,13 +5204,6 @@ react-is@^16.12.0, react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
-
-react-modern-calendar-datepicker@^3.1.6:
-  version "3.1.6"
-  resolved "https://registry.yarnpkg.com/react-modern-calendar-datepicker/-/react-modern-calendar-datepicker-3.1.6.tgz#46b1533eb387a4d93ae8217eb30c26a4174a138f"
-  integrity sha512-lnMqEMj9Wn32/sm119tjCl5lOkq4u9vJE7wggi7hdXV4s8rPdKlH56FVVehlBi0dfYeWQVZ9npY384Zprjn4WA==
-  dependencies:
-    jalaali-js "^1.1.0"
 
 react-remove-scroll-bar@^2.3.3:
   version "2.3.4"
@@ -5520,6 +5548,11 @@ source-map@^0.6.1:
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
   integrity sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==
 
+split-on-first@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/split-on-first/-/split-on-first-1.1.0.tgz#f610afeee3b12bce1d0c30425e76398b78249a5f"
+  integrity sha512-43ZssAJaMusuKWL8sKUBQXHWOpq8d6CfN/u1p4gUzfJkM05C8rxTmYrkIPTXapZpORA6LkkzcUulJ8FqA7Uudw==
+
 sponge-case@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/sponge-case/-/sponge-case-1.0.1.tgz#260833b86453883d974f84854cdb63aecc5aef4c"
@@ -5531,6 +5564,11 @@ streamsearch@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/streamsearch/-/streamsearch-1.1.0.tgz#404dd1e2247ca94af554e841a8ef0eaa238da764"
   integrity sha512-Mcc5wHehp9aXz1ax6bZUyY5afg9u2rv5cqQI3mRrYkGC8rW2hM02jWuwjtL++LS5qinSyhj2QfLyNsuc+VsExg==
+
+strict-uri-encode@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/strict-uri-encode/-/strict-uri-encode-2.0.0.tgz#b9c7330c7042862f6b142dc274bbcc5866ce3546"
+  integrity sha512-QwiXZgpRcKkhTj2Scnn++4PKtWsH0kpzZ62L2R6c/LUVYv7hVnZqcg2+sMuT6R7Jusu1vviK/MFsu6kNJfWlEQ==
 
 string-env-interpolation@1.0.1, string-env-interpolation@^1.0.1:
   version "1.0.1"
