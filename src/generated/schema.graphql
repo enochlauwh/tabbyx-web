@@ -1,0 +1,166 @@
+"""Exposes a URL that specifies the behavior of this scalar."""
+directive @specifiedBy(
+  """The URL that specifies the behavior of this scalar."""
+  url: String!
+) on SCALAR
+
+scalar AccountNumber
+
+input AvailableHoursInput {
+  year: Int!
+  month: Int!
+  day: Int!
+}
+
+scalar BigInt
+
+type Booking {
+  id: ID
+  startDate: DateTime
+  endDate: DateTime
+  createdAt: DateTime
+  createdBy: User
+  cancelledAt: DateTime
+}
+
+scalar Byte
+
+scalar CountryCode
+
+scalar Cuid
+
+scalar Currency
+
+scalar Date
+
+scalar DateTime
+
+scalar DID
+
+scalar Duration
+
+scalar EmailAddress
+
+scalar GUID
+
+scalar Hexadecimal
+
+scalar HexColorCode
+
+scalar HSL
+
+scalar HSLA
+
+scalar IBAN
+
+scalar IP
+
+scalar IPv4
+
+scalar IPv6
+
+scalar ISBN
+
+scalar ISO8601Duration
+
+scalar JSON
+
+scalar JSONObject
+
+scalar JWT
+
+scalar Latitude
+
+scalar LocalDate
+
+scalar Locale
+
+scalar LocalEndTime
+
+scalar LocalTime
+
+scalar Long
+
+scalar Longitude
+
+scalar MAC
+
+type Mutation {
+  _empty: String
+}
+
+scalar NegativeFloat
+
+scalar NegativeInt
+
+scalar NonEmptyString
+
+scalar NonNegativeFloat
+
+scalar NonNegativeInt
+
+scalar NonPositiveFloat
+
+scalar NonPositiveInt
+
+scalar ObjectID
+
+scalar PhoneNumber
+
+scalar Port
+
+scalar PositiveFloat
+
+scalar PositiveInt
+
+scalar PostalCode
+
+type Query {
+  _empty: String
+  hello: String
+
+  """Returns the bookings for a given user by email"""
+  bookings(email: String!): [Booking]!
+
+  """
+  Returns a list of available hours for a given day (9am to 6pm) as integers
+  """
+  availableHours(input: AvailableHoursInput!): [Int!]!
+}
+
+scalar RGB
+
+scalar RGBA
+
+scalar RoutingNumber
+
+scalar SafeInt
+
+scalar SemVer
+
+scalar Time
+
+scalar Timestamp
+
+scalar TimeZone
+
+scalar UnsignedFloat
+
+scalar UnsignedInt
+
+scalar URL
+
+scalar USCurrency
+
+type User {
+  id: ID
+  name: String
+  email: String
+}
+
+scalar UtcOffset
+
+scalar UUID
+
+scalar Void
+

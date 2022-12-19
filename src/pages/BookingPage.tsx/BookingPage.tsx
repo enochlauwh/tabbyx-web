@@ -11,30 +11,120 @@ import {
   SimpleGrid,
   Select,
 } from '@chakra-ui/react';
+import { gql, useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
-import { Calendar } from 'react-modern-calendar-datepicker';
+import { Calendar, Day } from 'react-modern-calendar-datepicker';
+import Joi from 'joi';
 
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 import {
   getCalendarAvailableRange,
   getCalendarDisabledDays,
 } from '@utils/date';
+import {
+  AvailableHoursQuery,
+  AvailableHoursQueryVariables,
+} from 'generated/graphql-types';
+import dayjs from 'dayjs';
+import { showError } from '@components/Toast';
+
+type FormData = {
+  name: string;
+  email: string;
+  hour: string;
+};
 
 const BookingPage = () => {
-  const [selectedDay, setSelectedDay] = useState(null);
+  const [selectedDay, setSelectedDay] = useState<Day | null>(null);
+  const [availableHours, setAvailableHours] = useState<number[]>([]);
+  const [formData, setFormData] = useState<FormData>({
+    name: '',
+    email: '',
+    hour: '',
+  });
+
+  const [formErrors, setFormErrors] = useState<string[]>([]);
+
   const availableDateRange = getCalendarAvailableRange();
   const disabledDays = getCalendarDisabledDays();
 
+  const { data: hoursQueryData } = useQuery<
+    AvailableHoursQuery,
+    AvailableHoursQueryVariables
+  >(hoursQuery, {
+    skip: !selectedDay,
+    variables: {
+      input: {
+        year: selectedDay?.year || 0,
+        month: selectedDay?.month || 0,
+        day: selectedDay?.day || 0,
+      },
+    },
+  });
+
   useEffect(() => {
-    handleDaySelected();
+    setFormData({
+      ...formData,
+      hour: '',
+    });
   }, [selectedDay]);
 
-  const handleDaySelected = () => {
-    // console.log('selected', selectedDay);
-  };
+  useEffect(() => {
+    if (hoursQueryData) {
+      setAvailableHours(hoursQueryData.availableHours);
+    }
+  }, [hoursQueryData]);
 
   const handleSubmit = () => {
-    //
+    setFormErrors([]);
+    isFormValid();
+  };
+
+  const getAvailableHoursOptions = () => {
+    return availableHours.map((hour) => {
+      const timeSlotStart = dayjs()
+        .hour(hour)
+        .minute(0)
+        .second(0)
+        .millisecond(0);
+      const timeSlotEnd = timeSlotStart.add(1, 'hour');
+      const timeSlot = `${timeSlotStart.format(
+        'h:mm A',
+      )} - ${timeSlotEnd.format('h:mm A')}`;
+
+      return (
+        <option key={`hour:${hour}`} value={hour}>
+          {timeSlot}
+        </option>
+      );
+    });
+  };
+
+  const isFormComplete = () => {
+    return (
+      formData.name.length > 0 &&
+      formData.email.length > 0 &&
+      formData.hour !== ''
+    );
+  };
+
+  const isFormValid = () => {
+    const schema = Joi.object({
+      name: Joi.string().required(),
+      email: Joi.string().email({ tlds: false }).required(),
+      hour: Joi.number().required(),
+    });
+    const { error } = schema.validate(formData);
+    if (error) {
+      const errorTypes = error.details.map((detail) => detail.type);
+      if (errorTypes.includes('string.email')) {
+        showError('Please enter a valid email address');
+        setFormErrors(['email']);
+      }
+      return false;
+    }
+
+    return true;
   };
 
   return (
@@ -100,6 +190,10 @@ const BookingPage = () => {
                 _placeholder={{
                   color: 'gray.500',
                 }}
+                value={formData.name}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
                 isRequired={true}
               />
               <Input
@@ -110,17 +204,27 @@ const BookingPage = () => {
                 _placeholder={{
                   color: 'gray.500',
                 }}
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
                 isRequired={true}
+                isInvalid={formErrors.includes('email')}
               />
               <Input
-                placeholder="Phone number"
+                placeholder="Select a date"
                 bg={'gray.100'}
                 border={0}
                 color={'gray.500'}
                 _placeholder={{
                   color: 'gray.500',
                 }}
-                isRequired={true}
+                value={
+                  selectedDay
+                    ? `${selectedDay.day}/${selectedDay.month}/${selectedDay.year}`
+                    : 'Select a date'
+                }
+                disabled={true}
               />
               <Select
                 placeholder="Select a time slot"
@@ -130,11 +234,13 @@ const BookingPage = () => {
                 _placeholder={{
                   color: 'gray.500',
                 }}
+                value={formData.hour}
+                onChange={(e) =>
+                  setFormData({ ...formData, hour: e.target.value })
+                }
                 isRequired={true}
               >
-                <option value="option1">Option 1</option>
-                <option value="option1">Option 2</option>
-                <option value="option1">Option 3</option>
+                {getAvailableHoursOptions()}
               </Select>
             </Stack>
             <Button
@@ -148,6 +254,7 @@ const BookingPage = () => {
                 boxShadow: 'xl',
               }}
               onClick={handleSubmit}
+              disabled={!isFormComplete()}
             >
               Book Now
             </Button>
@@ -158,5 +265,11 @@ const BookingPage = () => {
     </Box>
   );
 };
+
+const hoursQuery = gql`
+  query AvailableHours($input: AvailableHoursInput!) {
+    availableHours(input: $input)
+  }
+`;
 
 export default BookingPage;

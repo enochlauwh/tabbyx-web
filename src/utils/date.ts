@@ -3,13 +3,14 @@ import { Day } from 'react-modern-calendar-datepicker';
 
 const getCalendarAvailableRange = () => {
   const today = dayjs();
-  const endDate = today.add(3, 'weeks');
+  const startDate = today.add(2, 'days'); // 2 business days in advance
+  const endDate = today.add(3, 'weeks'); // 3 weeks in advance maximum
 
   return {
     minimumDate: {
-      year: today.year(),
-      month: today.month() + 1, // month is 0-indexed
-      day: today.date(),
+      year: startDate.year(),
+      month: startDate.month() + 1, // month is 0-indexed
+      day: startDate.date(),
     },
     maximumDate: {
       year: endDate.year(),

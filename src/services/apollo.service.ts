@@ -1,5 +1,6 @@
 import { from, ApolloClient, InMemoryCache } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
+import { HttpLink } from '@apollo/client';
 
 const errorLink = onError(({ graphQLErrors, networkError, response }) => {
   console.log('response', response);
@@ -31,10 +32,13 @@ const errorLink = onError(({ graphQLErrors, networkError, response }) => {
   }
 });
 
-const client = new ApolloClient({
+const httpLink = new HttpLink({
   uri: import.meta.env.VITE_GRAPHQL_URL || 'http://localhost:5700/graphql',
+});
+
+const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link: from([errorLink]),
+  link: from([errorLink, httpLink]),
   defaultOptions: {
     watchQuery: {
       fetchPolicy: 'cache-and-network',

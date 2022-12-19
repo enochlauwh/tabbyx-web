@@ -8,24 +8,16 @@ const commonToastProps: UseToastOptions = {
   position: 'top',
 };
 
-const showSuccess = ({
-  title,
-  message,
-}: {
-  title: string;
-  message: string;
-}) => {
+const showSuccess = (message: string) => {
   toast({
-    title: title,
     description: message,
     status: 'success',
     ...commonToastProps,
   });
 };
 
-const showError = ({ title, message }: { title: string; message: string }) => {
+const showError = (message: string) => {
   toast({
-    title: title,
     description: message,
     status: 'error',
     ...commonToastProps,

@@ -12,15 +12,16 @@ describe('DateUtils', () => {
     test('it should get the range for today until 3 weeks from today', () => {
       MockDate.set('2020-01-01');
       const today = dayjs();
+      const startDate = today.add(2, 'days'); // 2 business days in advance
       const endDate = today.add(3, 'weeks');
 
       const { minimumDate, maximumDate } =
         DateUtils.getCalendarAvailableRange();
 
       expect(minimumDate).toEqual({
-        year: today.year(),
-        month: today.month() + 1,
-        day: today.date(),
+        year: startDate.year(),
+        month: startDate.month() + 1,
+        day: startDate.date(),
       });
 
       expect(maximumDate).toEqual({
