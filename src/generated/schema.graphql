@@ -97,6 +97,7 @@ input MakeBookingInput {
 type Mutation {
   _empty: String
   makeBooking(input: MakeBookingInput!): Booking!
+  cancelBooking(id: ID!): Boolean!
 }
 
 scalar NegativeFloat
@@ -129,7 +130,7 @@ type Query {
   _empty: String
 
   """Returns the bookings for a given user by email"""
-  bookings(email: String!): [Booking]!
+  bookings(email: String!): [Booking!]!
 
   """
   Returns a list of available hours for a given day (9am to 6pm) as integers

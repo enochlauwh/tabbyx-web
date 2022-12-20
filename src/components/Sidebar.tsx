@@ -25,7 +25,7 @@ interface LinkItemProps {
 const LinkItems: Array<LinkItemProps> = [
   { name: 'Home', icon: FiHome, path: '/' },
   { name: 'Book an Appointment', icon: FiCalendar, path: '/booking' },
-  { name: 'Check My Appointment', icon: FiInfo, path: '/check' },
+  { name: 'Check My Appointments', icon: FiInfo, path: '/check' },
 ];
 
 export default function SimpleSidebar({ children }: { children?: ReactNode }) {

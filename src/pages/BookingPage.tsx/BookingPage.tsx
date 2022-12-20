@@ -282,7 +282,7 @@ const BookingPage = () => {
               fontFamily={'heading'}
               mt={8}
               w={'full'}
-              bgGradient="linear(to-r, red.400,pink.400)"
+              bg="orange.400"
               color={'white'}
               _hover={{
                 bgGradient: 'linear(to-r, red.400,pink.400)',

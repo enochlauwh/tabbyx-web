@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { Day } from 'react-modern-calendar-datepicker';
+import { Day } from '@hassanmojab/react-modern-calendar-datepicker';
 
 const getCalendarAvailableRange = () => {
   const today = dayjs();

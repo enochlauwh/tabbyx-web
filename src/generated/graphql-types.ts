@@ -101,7 +101,13 @@ export type MakeBookingInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   _empty?: Maybe<Scalars['String']>;
+  cancelBooking: Scalars['Boolean'];
   makeBooking: Booking;
+};
+
+
+export type MutationCancelBookingArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -115,7 +121,7 @@ export type Query = {
   /** Returns a list of available hours for a given day (9am to 6pm) as integers */
   availableHours: Array<Scalars['Int']>;
   /** Returns the bookings for a given user by email */
-  bookings: Array<Maybe<Booking>>;
+  bookings: Array<Booking>;
 };
 
 
@@ -148,3 +154,17 @@ export type MakeBookingMutationVariables = Exact<{
 
 
 export type MakeBookingMutation = { __typename?: 'Mutation', makeBooking: { __typename?: 'Booking', id?: string | null, startDate?: any | null, endDate?: any | null, createdAt?: any | null, createdBy?: { __typename?: 'User', name?: string | null, email?: string | null } | null } };
+
+export type BookingsQueryVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+
+export type BookingsQuery = { __typename?: 'Query', bookings: Array<{ __typename?: 'Booking', id?: string | null, startDate?: any | null, endDate?: any | null, createdAt?: any | null, cancelledAt?: any | null, createdBy?: { __typename?: 'User', name?: string | null, email?: string | null } | null }> };
+
+export type CancelBookingMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type CancelBookingMutation = { __typename?: 'Mutation', cancelBooking: boolean };
